@@ -1,3 +1,19 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class Kanagawa_Senkyo_App extends PApplet {
+
 float[] angles1;
 
 int PieChartPlotX;
@@ -64,7 +80,7 @@ String[] filename;
 
 int type;
 
-void setup(){
+public void setup(){
   
   year = 2012;
   type = 2;
@@ -93,7 +109,7 @@ void setup(){
     
     String[] pieces = split(lines2[i], ',');
     for(int j=0; j<5; j++){
-      touhyouritsu[i][j] = int(pieces[j]);
+      touhyouritsu[i][j] = PApplet.parseInt(pieces[j]);
     }
     
   }
@@ -150,10 +166,10 @@ void setup(){
   for(int i=0; i<lines.length; i++){
     
     String[] pieces = split(lines[i],',');
-    int kuwari = int(pieces[0]);
-    int party  = int(pieces[1]);
+    int kuwari = PApplet.parseInt(pieces[0]);
+    int party  = PApplet.parseInt(pieces[1]);
     String name = pieces[2];
-    int vote   = int(pieces[3]);
+    int vote   = PApplet.parseInt(pieces[3]);
     
     if(kuwari == 1){ Kuwari1.put(party,vote); Kouho1.put(party,name); dataMax1 = dataMax1 + vote; }
     if(kuwari == 2){ Kuwari2.put(party,vote); Kouho2.put(party,name); dataMax2 = dataMax2 + vote; }
@@ -180,7 +196,7 @@ void setup(){
 }
 
 
-void UpdateSetting(int SetYear){
+public void UpdateSetting(int SetYear){
 
   String[] lines;
   if(SetYear == 2003){
@@ -206,7 +222,7 @@ void UpdateSetting(int SetYear){
     
     String[] pieces = split(lines2[i], ',');
     for(int j=0; j<5; j++){
-      touhyouritsu[i][j] = int(pieces[j]);
+      touhyouritsu[i][j] = PApplet.parseInt(pieces[j]);
     }
     
   }
@@ -281,10 +297,10 @@ void UpdateSetting(int SetYear){
   for(int i=0; i<lines.length; i++){
     
     String[] pieces = split(lines[i],',');
-    int kuwari = int(pieces[0]);
-    int party  = int(pieces[1]);
+    int kuwari = PApplet.parseInt(pieces[0]);
+    int party  = PApplet.parseInt(pieces[1]);
     String name = pieces[2];
-    int vote   = int(pieces[3]);
+    int vote   = PApplet.parseInt(pieces[3]);
     
     if(kuwari == 1){ Kuwari1.put(party,vote); Kouho1.put(party,name); dataMax1 = dataMax1 + vote; }
     if(kuwari == 2){ Kuwari2.put(party,vote); Kouho2.put(party,name); dataMax2 = dataMax2 + vote; }
@@ -315,7 +331,7 @@ void UpdateSetting(int SetYear){
 
 
 
-void draw(){
+public void draw(){
   
   PieChartPlotX = 650;
   PieChartPlotY = 60;
@@ -340,7 +356,7 @@ void draw(){
 
 }
 
-void UpdateDraw(int SelectYear){
+public void UpdateDraw(int SelectYear){
   
   year = SelectYear;
   
@@ -368,7 +384,7 @@ void UpdateDraw(int SelectYear){
 
 
 
-void DrawEachSenkyoku(){
+public void DrawEachSenkyoku(){
   
   DrawPieChart(PieChartPlotX,PieChartPlotY,Kuwari1,Kouho1,dataMax1, 1);
   DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY, Kuwari2,Kouho2, dataMax2, 2);
@@ -398,12 +414,12 @@ void DrawEachSenkyoku(){
 
 
 
-void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int knum){
+public void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int knum){
 
   int countHash = Kuwari.size();
 
   float[] angles = new float[countHash];
-  color[] pattern = new color[countHash];
+  int[] pattern = new int[countHash];
   String[] namelist = new String[countHash];
   
   int j=0;
@@ -413,19 +429,19 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
       angles[j] = (float) map(value,0,dataMax,0,360);
       namelist[j] = (String) Kouho.get(i);
       
-      if(i==1){ pattern[j] = #CC3333; }
-      else if(i==2){ pattern[j] = #DDDD00; }
-      else if(i==3){ pattern[j] = #00DD00; }
-      else if(i==4){ pattern[j] = #AAAAAA; }
-      else if(i==5){ pattern[j] = #DD00DD; }
-      else if(i==6){ pattern[j] = #55AACC; }
-      else if(i==7){ pattern[j] = #AF8080; }
-      else if(i==8){ pattern[j] = #FF9933; }
-      else if(i==9){ pattern[j] = #3366EE; }
-      else if(i==10){ pattern[j] = #FFFFFF; }
-      else if(i==11){ pattern[j] = #CC6699; }
-      else if(i==12){ pattern[j] = #9933CC; }
-      else{ pattern[j] = #FFFFFF; }
+      if(i==1){ pattern[j] = 0xffCC3333; }
+      else if(i==2){ pattern[j] = 0xffDDDD00; }
+      else if(i==3){ pattern[j] = 0xff00DD00; }
+      else if(i==4){ pattern[j] = 0xffAAAAAA; }
+      else if(i==5){ pattern[j] = 0xffDD00DD; }
+      else if(i==6){ pattern[j] = 0xff55AACC; }
+      else if(i==7){ pattern[j] = 0xffAF8080; }
+      else if(i==8){ pattern[j] = 0xffFF9933; }
+      else if(i==9){ pattern[j] = 0xff3366EE; }
+      else if(i==10){ pattern[j] = 0xffFFFFFF; }
+      else if(i==11){ pattern[j] = 0xffCC6699; }
+      else if(i==12){ pattern[j] = 0xff9933CC; }
+      else{ pattern[j] = 0xffFFFFFF; }
       j++;
       
     }
@@ -437,7 +453,7 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
   
 }
 
-void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, int ChartX, int ChartY, int knum){
+public void pieChart(float diameter, float[] data, int[] pattern, String[] namelist, int ChartX, int ChartY, int knum){
   
   float lastAngle = 0;
 
@@ -470,24 +486,24 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
       if(kouho2014.containsKey(pname)){
         
         String tmp = (String) kouho2014.get(pname);
-        party = int(tmp);
+        party = PApplet.parseInt(tmp);
         
       }
     }
     
-    if(party==1){ fill(#FF2222); }
-    else if(party==2){ fill(#E3E300); }
-    else if(party==3){ fill(#00E300); }
-    else if(party==4){ fill(#AFAFAF); }
-    else if(party==5){ fill(#E300E3); }
-    else if(party==6){ fill(#80BBFF); }
-    else if(party==7){ fill(#AF8080); }
-    else if(party==8){ fill(#FF9933); }
-    else if(party==9){ fill(#3399FF); }
-    else if(party==10){ fill(#FFFFFF); }
-    else if(party==11){ fill(#CC6699); }
-    else if(party==12){ fill(#9933CC); }
-    else{ fill(#FFFFFF); }
+    if(party==1){ fill(0xffFF2222); }
+    else if(party==2){ fill(0xffE3E300); }
+    else if(party==3){ fill(0xff00E300); }
+    else if(party==4){ fill(0xffAFAFAF); }
+    else if(party==5){ fill(0xffE300E3); }
+    else if(party==6){ fill(0xff80BBFF); }
+    else if(party==7){ fill(0xffAF8080); }
+    else if(party==8){ fill(0xffFF9933); }
+    else if(party==9){ fill(0xff3399FF); }
+    else if(party==10){ fill(0xffFFFFFF); }
+    else if(party==11){ fill(0xffCC6699); }
+    else if(party==12){ fill(0xff9933CC); }
+    else{ fill(0xffFFFFFF); }
     
     textFont(font);
     
@@ -499,7 +515,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     nameTextY = nameTextY + 15;
            
   }
-  fill(#000000);
+  fill(0xff000000);
   ellipse(ChartX, ChartY, diameter/3, diameter/3);
   textFont(font);
   fill(255);
@@ -513,7 +529,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
 
 
 
-void drawKanagawaMap(){
+public void drawKanagawaMap(){
   
    int[] win = new int[18];
    win[0] = getWinList(Kuwari1);
@@ -545,19 +561,19 @@ void drawKanagawaMap(){
      String kuwari = str(i);
      senkyoku = KanagawaMap.getChild(kuwari);
      
-     color c;
-     if(win[i-1] == 1){ c = #CC3333; }
-     else if(win[i-1] == 2){ c = #DDDD00; }
-     else if(win[i-1] == 3){ c = #00DD00; }
-     else if(win[i-1] == 4){ c = #AAAAAA; }
-     else if(win[i-1] == 5){ c = #DD00DD; }
-     else if(win[i-1] == 6){ c = #55AACC; }
-     else if(win[i-1] == 7){ c = #AF8080; }
-     else if(win[i-1] == 8){ c = #FF9933; }
-     else if(win[i-1] == 9){ c = #3366EE; }
-     else if(win[i-1] == 11){ c = #CC6699; }
-     else if(win[i-1] == 12){ c = #9933CC; }
-     else{ c = #FFFFFF; }
+     int c;
+     if(win[i-1] == 1){ c = 0xffCC3333; }
+     else if(win[i-1] == 2){ c = 0xffDDDD00; }
+     else if(win[i-1] == 3){ c = 0xff00DD00; }
+     else if(win[i-1] == 4){ c = 0xffAAAAAA; }
+     else if(win[i-1] == 5){ c = 0xffDD00DD; }
+     else if(win[i-1] == 6){ c = 0xff55AACC; }
+     else if(win[i-1] == 7){ c = 0xffAF8080; }
+     else if(win[i-1] == 8){ c = 0xffFF9933; }
+     else if(win[i-1] == 9){ c = 0xff3366EE; }
+     else if(win[i-1] == 11){ c = 0xffCC6699; }
+     else if(win[i-1] == 12){ c = 0xff9933CC; }
+     else{ c = 0xffFFFFFF; }
      
      fill(c);
      stroke(255);
@@ -571,7 +587,7 @@ void drawKanagawaMap(){
   
 }
 
-int getWinList(HashMap Kuwari){
+public int getWinList(HashMap Kuwari){
   
   int count = Kuwari.size(); 
   int max = 0;
@@ -590,7 +606,7 @@ int getWinList(HashMap Kuwari){
 }
 
 
-void drawTouhyou(int years){
+public void drawTouhyou(int years){
   
   float vote = 0;
   float total = 0;
@@ -615,12 +631,12 @@ void drawTouhyou(int years){
   textFont(RateFont);
   
   fill(255);
-  text("投票率（全体）   " + nf(rate_total,2,2) + "%", 50, 520);
-  text("投票率（神奈川県）  " + nf(rate, 2, 2) + "%", 50, 540);
+  text("\u6295\u7968\u7387\uff08\u5168\u4f53\uff09   " + nf(rate_total,2,2) + "%", 50, 520);
+  text("\u6295\u7968\u7387\uff08\u795e\u5948\u5ddd\u770c\uff09  " + nf(rate, 2, 2) + "%", 50, 540);
   
 }
 
-void drawParty(){
+public void drawParty(){
   
   int beginRectX = 50;
   int beginRectY = 555;
@@ -632,85 +648,85 @@ void drawParty(){
    noStroke();
    textFont(font);
    
-   fill(#CC3333);
+   fill(0xffCC3333);
    rect(beginRectX,beginRectY,RectWidth,RectHeight);
-   fill(#FFFFFF);
-   text("自由民主党", TextX, TextY);
+   fill(0xffFFFFFF);
+   text("\u81ea\u7531\u6c11\u4e3b\u515a", TextX, TextY);
    
-   fill(#DDDD00);
+   fill(0xffDDDD00);
    rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
-   text("公明党", TextX + 150, TextY);
+   fill(0xffFFFFFF);
+   text("\u516c\u660e\u515a", TextX + 150, TextY);
    
    
-   fill(#00DD00);
+   fill(0xff00DD00);
    beginRectY = beginRectY + (RectWidth *2);
    rect(beginRectX,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
+   fill(0xffFFFFFF);
    TextY = TextY + (RectWidth * 2);
-   text("維新の党（日本維新の会）", TextX, TextY);
+   text("\u7dad\u65b0\u306e\u515a\uff08\u65e5\u672c\u7dad\u65b0\u306e\u4f1a\uff09", TextX, TextY);
    
-   fill(#AAAAAA);
+   fill(0xffAAAAAA);
    rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
-   text("みんなの党", TextX + 150, TextY);
+   fill(0xffFFFFFF);
+   text("\u307f\u3093\u306a\u306e\u515a", TextX + 150, TextY);
    
    beginRectY = beginRectY + (RectWidth * 2);
    TextY = TextY + (RectWidth * 2);
    
-   fill(#DD00DD);
+   fill(0xffDD00DD);
    rect(beginRectX,beginRectY, RectWidth, RectHeight); 
-   fill(#FFFFFF);
-   text("幸福実現党", TextX, TextY);   
+   fill(0xffFFFFFF);
+   text("\u5e78\u798f\u5b9f\u73fe\u515a", TextX, TextY);   
    
-   fill(#55AACC);
+   fill(0xff55AACC);
    rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
-   text("社会民主党", TextX + 150, TextY);
+   fill(0xffFFFFFF);
+   text("\u793e\u4f1a\u6c11\u4e3b\u515a", TextX + 150, TextY);
 
    beginRectY = beginRectY + (RectWidth * 2);
    TextY = TextY + (RectWidth * 2);
    
-   fill(#AF8080);
+   fill(0xffAF8080);
    rect(beginRectX,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
-   text("日本共産党", TextX, TextY);
+   fill(0xffFFFFFF);
+   text("\u65e5\u672c\u5171\u7523\u515a", TextX, TextY);
 
-   fill(#FF9933);
+   fill(0xffFF9933);
    rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
-   text("生活の党（日本未来の党）", TextX + 150, TextY); 
+   fill(0xffFFFFFF);
+   text("\u751f\u6d3b\u306e\u515a\uff08\u65e5\u672c\u672a\u6765\u306e\u515a\uff09", TextX + 150, TextY); 
    
    beginRectY = beginRectY + (RectWidth * 2);   
    TextY = TextY + (RectWidth * 2);   
    
-   fill(#3366EE);
+   fill(0xff3366EE);
    rect(beginRectX,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
-   text("民主党", TextX, TextY); 
+   fill(0xffFFFFFF);
+   text("\u6c11\u4e3b\u515a", TextX, TextY); 
    
-   fill(#CC6699);
+   fill(0xffCC6699);
    rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
-   text("新党日本", TextX + 150, TextY); 
+   fill(0xffFFFFFF);
+   text("\u65b0\u515a\u65e5\u672c", TextX + 150, TextY); 
      
    beginRectY = beginRectY + (RectWidth * 2);  
    TextY = TextY + (RectWidth * 2);
    
-   fill(#9933CC);
+   fill(0xff9933CC);
    rect(beginRectX,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);   
-   text("次世代の党", TextX, TextY); 
+   fill(0xffFFFFFF);   
+   text("\u6b21\u4e16\u4ee3\u306e\u515a", TextX, TextY); 
    
-   fill(#FFFFFF);
+   fill(0xffFFFFFF);
    rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
+   fill(0xffFFFFFF);
    text("Others", TextX + 150, TextY); 
    
 }
 
 
-void ButtonDraw(){
+public void ButtonDraw(){
   
   float buttonX = 25;
   float buttonY = 55;
@@ -741,7 +757,7 @@ void ButtonDraw(){
 }
 
 
-void mousePressed(){
+public void mousePressed(){
   
   // 2003
   float BeginButtonX = 25;
@@ -802,3 +818,12 @@ void mousePressed(){
 
 
 
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "Kanagawa_Senkyo_App" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}
