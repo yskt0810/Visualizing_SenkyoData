@@ -615,8 +615,8 @@ void drawTouhyou(int years){
   textFont(RateFont);
   
   fill(255);
-  text("Vote Rate (Country)   " + nf(rate_total,2,2) + "%", 50, 520);
-  text("Vote Rate (Kanagawa)  " + nf(rate, 2, 2) + "%", 50, 540);
+  text("投票率（全体）   " + nf(rate_total,2,2) + "%", 50, 520);
+  text("投票率（神奈川県）  " + nf(rate, 2, 2) + "%", 50, 540);
   
 }
 
@@ -635,87 +635,77 @@ void drawParty(){
    fill(#CC3333);
    rect(beginRectX,beginRectY,RectWidth,RectHeight);
    fill(#FFFFFF);
-   text("自由民主党 / Liberal Democratic Party", TextX, TextY);
+   text("自由民主党", TextX, TextY);
    
    fill(#DDDD00);
-   beginRectY = beginRectY + (RectWidth *2);
-   rect(beginRectX,beginRectY, RectWidth, RectHeight);
+   rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("公明党 / Komeito", TextX, TextY);
+   text("公明党", TextX + 150, TextY);
+   
    
    fill(#00DD00);
    beginRectY = beginRectY + (RectWidth *2);
    rect(beginRectX,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
    TextY = TextY + (RectWidth * 2);
-   text("維新の党（日本維新の会）/ Japan Innovation Party (Japan Restration Party)", TextX, TextY);
+   text("維新の党（日本維新の会）", TextX, TextY);
    
    fill(#AAAAAA);
-   beginRectY = beginRectY + (RectWidth * 2);
-   rect(beginRectX,beginRectY, RectWidth, RectHeight);
+   rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("みんなの党 / Your Party", TextX, TextY);
-      
-   fill(#DD00DD);
+   text("みんなの党", TextX + 150, TextY);
+   
    beginRectY = beginRectY + (RectWidth * 2);
+   TextY = TextY + (RectWidth * 2);
+   
+   fill(#DD00DD);
    rect(beginRectX,beginRectY, RectWidth, RectHeight); 
    fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("幸福実現党 / Happiness Realization Party", TextX, TextY);   
+   text("幸福実現党", TextX, TextY);   
    
    fill(#55AACC);
-   beginRectY = beginRectY + (RectWidth * 2);
-   rect(beginRectX,beginRectY, RectWidth, RectHeight);
+   rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
+   text("社会民主党", TextX + 150, TextY);
+
+   beginRectY = beginRectY + (RectWidth * 2);
    TextY = TextY + (RectWidth * 2);
-   text("社会民主党 / Social Democratic Party", TextX, TextY);
-      
+   
    fill(#AF8080);
-   beginRectY = beginRectY + (RectWidth * 2);
    rect(beginRectX,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("日本共産党 / Japanese Communist Party", TextX, TextY);
+   text("日本共産党", TextX, TextY);
 
    fill(#FF9933);
-   beginRectY = beginRectY + (RectWidth * 2);
-   rect(beginRectX,beginRectY, RectWidth, RectHeight);
+   rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("生活の党（日本未来の党） / People's Life Party (Tomorrow Party of Japan)", TextX, TextY);   
+   text("生活の党（日本未来の党）", TextX + 150, TextY); 
+   
+   beginRectY = beginRectY + (RectWidth * 2);   
+   TextY = TextY + (RectWidth * 2);   
    
    fill(#3366EE);
-   beginRectY = beginRectY + (RectWidth * 2);
    rect(beginRectX,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("民主党 / Democratic Party of Japan", TextX, TextY); 
+   text("民主党", TextX, TextY); 
    
-   //else if(win[i-1] == 11){ c = #CC6699; }
    fill(#CC6699);
-   beginRectY = beginRectY + (RectWidth * 2);
-   rect(beginRectX,beginRectY, RectWidth, RectHeight);
+   rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("新党日本 / New Party Nippon", TextX, TextY); 
+   text("新党日本", TextX + 150, TextY); 
      
-     //else if(win[i-1] == 12){ c = #9933CC; }
+   beginRectY = beginRectY + (RectWidth * 2);  
+   TextY = TextY + (RectWidth * 2);
+   
    fill(#9933CC);
-   beginRectY = beginRectY + (RectWidth * 2);
    rect(beginRectX,beginRectY, RectWidth, RectHeight);
-   fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("次世代の党 / The Party for Future Generations", TextX, TextY); 
-   
+   fill(#FFFFFF);   
+   text("次世代の党", TextX, TextY); 
    
    fill(#FFFFFF);
-   beginRectY = beginRectY + (RectWidth * 2);
-   rect(beginRectX,beginRectY, RectWidth, RectHeight);
+   rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
-   TextY = TextY + (RectWidth * 2);
-   text("Others", TextX, TextY); 
+   text("Others", TextX + 150, TextY); 
    
 }
 
