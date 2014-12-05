@@ -11,24 +11,10 @@ HashMap Kuwari6; HashMap Kuwari7; HashMap Kuwari8; HashMap Kuwari9; HashMap Kuwa
 HashMap Kuwari11; HashMap Kuwari12; HashMap Kuwari13; HashMap Kuwari14; HashMap Kuwari15;
 HashMap Kuwari16; HashMap Kuwari17;HashMap Kuwari18;
 
-HashMap Kouho1;
-HashMap Kouho2;
-HashMap Kouho3;
-HashMap Kouho4;
-HashMap Kouho5;
-HashMap Kouho6;
-HashMap Kouho7;
-HashMap Kouho8;
-HashMap Kouho9;
-HashMap Kouho10;
-HashMap Kouho11;
-HashMap Kouho12;
-HashMap Kouho13;
-HashMap Kouho14;
-HashMap Kouho15;
-HashMap Kouho16;
-HashMap Kouho17;
-HashMap Kouho18;
+HashMap Kouho1; HashMap Kouho2; HashMap Kouho3; HashMap Kouho4; HashMap Kouho5;
+HashMap Kouho6; HashMap Kouho7; HashMap Kouho8; HashMap Kouho9; HashMap Kouho10;
+HashMap Kouho11; HashMap Kouho12; HashMap Kouho13; HashMap Kouho14; HashMap Kouho15;
+HashMap Kouho16; HashMap Kouho17; HashMap Kouho18;
 
 int dataMax1 = 0;
 int dataMax2 = 0;
@@ -79,7 +65,8 @@ void setup(){
   String[] lines = loadStrings(filename[3]); 
   KanagawaMap = loadShape("kanagawa.svg");
   
-  font = loadFont("HiraKakuProN-W6-10.vlw");
+  //font = loadFont("HiraKakuProN-W6-10.vlw");
+  font = createFont("SansSerif",10);
   TitleFont = createFont("SansSerif", 28);
   RateFont = createFont("SansSerif", 14);
   
