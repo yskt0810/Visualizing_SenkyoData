@@ -2,8 +2,9 @@ float[] angles1;
 
 int PieChartPlotX;
 int PieChartPlotY;
-int distance = 50;
-int diameter = 70;
+int distance = 85;
+int distanceY = 50;
+int diameter = 75;
 
 HashMap Kuwari1; HashMap Kuwari2; HashMap Kuwari3; HashMap Kuwari4; HashMap Kuwari5;
 HashMap Kuwari6; HashMap Kuwari7; HashMap Kuwari8; HashMap Kuwari9; HashMap Kuwari10;
@@ -78,14 +79,14 @@ void setup(){
   String[] lines = loadStrings(filename[3]); 
   KanagawaMap = loadShape("kanagawa.svg");
   
-  font = createFont("SansSerif", 8);
+  font = loadFont("HiraKakuProN-W6-10.vlw");
   TitleFont = createFont("SansSerif", 28);
   RateFont = createFont("SansSerif", 14);
   
   String[] lines2 = loadStrings("touhyouritsu.csv");
   String[] lines3 = loadStrings("2014info.csv");
   
-  size(1200,750);
+  size(1250,750);
   DataTitle = "Kanagawa Senkyo " + str(year);
   
   touhyouritsu = new int[8][8];
@@ -317,7 +318,7 @@ void UpdateSetting(int SetYear){
 
 void draw(){
   
-  PieChartPlotX = 650;
+  PieChartPlotX = 500;
   PieChartPlotY = 60;
   
   background(0);
@@ -344,7 +345,7 @@ void UpdateDraw(int SelectYear){
   
   year = SelectYear;
   
-  PieChartPlotX = 650;
+  PieChartPlotX = 500;
   PieChartPlotY = 60;
   
   background(0);
@@ -376,22 +377,22 @@ void DrawEachSenkyoku(){
   DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY, Kuwari4, Kouho4, dataMax4, 4);
   DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY, Kuwari5, Kouho5, dataMax5, 5);
   
-  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter + distance * 2),Kuwari6,Kouho6,dataMax6, 6);
-  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter + distance * 2), Kuwari7,Kouho7, dataMax7, 7);
-  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter + distance * 2), Kuwari8, Kouho8, dataMax8, 8);
-  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter + distance * 2), Kuwari9, Kouho9, dataMax9, 9);
-  DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY + (diameter + distance * 2), Kuwari10, Kouho10, dataMax10, 10);
+  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter + distanceY * 2),Kuwari6,Kouho6,dataMax6, 6);
+  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter + distanceY * 2), Kuwari7,Kouho7, dataMax7, 7);
+  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter + distanceY * 2), Kuwari8, Kouho8, dataMax8, 8);
+  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter + distanceY * 2), Kuwari9, Kouho9, dataMax9, 9);
+  DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY + (diameter + distanceY * 2), Kuwari10, Kouho10, dataMax10, 10);
   
-  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter * 2 + distance * 4),Kuwari11, Kouho11, dataMax11, 11);
-  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter * 2 + distance * 4), Kuwari12, Kouho12, dataMax12, 12);
-  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter * 2 + distance * 4), Kuwari13, Kouho13, dataMax13, 13);
-  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter * 2 + distance * 4), Kuwari14, Kouho14, dataMax14, 14);
-  DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY + (diameter * 2 + distance * 4), Kuwari15, Kouho15, dataMax15, 15);
+  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter * 2 + distanceY * 4),Kuwari11, Kouho11, dataMax11, 11);
+  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari12, Kouho12, dataMax12, 12);
+  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari13, Kouho13, dataMax13, 13);
+  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari14, Kouho14, dataMax14, 14);
+  DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari15, Kouho15, dataMax15, 15);
   
 
-  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter * 3 + distance * 6),Kuwari16,Kouho16, dataMax16, 16);
-  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter * 3 + distance * 6), Kuwari17, Kouho17, dataMax17, 17);
-  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter * 3 + distance * 6), Kuwari18, Kouho18, dataMax18, 18);
+  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter * 3 + distanceY * 6),Kuwari16,Kouho16, dataMax16, 16);
+  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter * 3 + distanceY * 6), Kuwari17, Kouho17, dataMax17, 17);
+  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter * 3 + distanceY * 6), Kuwari18, Kouho18, dataMax18, 18);
   
 }
 
@@ -422,10 +423,10 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
       else if(i==7){ pattern[j] = #AF8080; }
       else if(i==8){ pattern[j] = #FF9933; }
       else if(i==9){ pattern[j] = #3366EE; }
-      else if(i==10){ pattern[j] = #FFFFFF; }
+      else if(i==10){ pattern[j] = #333333; }
       else if(i==11){ pattern[j] = #CC6699; }
       else if(i==12){ pattern[j] = #9933CC; }
-      else{ pattern[j] = #FFFFFF; }
+      else{ pattern[j] = #333333; }
       j++;
       
     }
@@ -557,7 +558,7 @@ void drawKanagawaMap(){
      else if(win[i-1] == 9){ c = #3366EE; }
      else if(win[i-1] == 11){ c = #CC6699; }
      else if(win[i-1] == 12){ c = #9933CC; }
-     else{ c = #FFFFFF; }
+     else{ c = #333333; }
      
      fill(c);
      stroke(255);
@@ -702,7 +703,7 @@ void drawParty(){
    fill(#FFFFFF);   
    text("次世代の党", TextX, TextY); 
    
-   fill(#FFFFFF);
+   fill(#333333);
    rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
    text("Others", TextX + 150, TextY); 
@@ -719,25 +720,25 @@ void ButtonDraw(){
   fill(255);
   rect(buttonX,buttonY, 50,15);
   fill(0);
-  text("2012",buttonX + 15, buttonY+10);
+  text("2012",buttonX + 10, buttonY+12);
   
   buttonX = buttonX + 50 + 10;
   fill(255);
   rect(buttonX,buttonY, 50,15);
   fill(0);
-  text("2009",buttonX + 15, buttonY+10);
+  text("2009",buttonX + 10, buttonY+12);
   
   buttonX = buttonX + 50 + 10;
   fill(255);
   rect(buttonX,buttonY, 50,15);
   fill(0);
-  text("2005",buttonX + 15, buttonY+10);
+  text("2005",buttonX + 10, buttonY+12);
   
   buttonX = buttonX + 50 + 10;
   fill(255);
   rect(buttonX,buttonY, 50,15);
   fill(0);
-  text("2003",buttonX + 15, buttonY+10);
+  text("2003",buttonX + 10, buttonY+12);
 }
 
 
