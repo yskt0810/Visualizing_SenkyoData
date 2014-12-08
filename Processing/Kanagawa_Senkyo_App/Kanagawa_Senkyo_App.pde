@@ -428,6 +428,10 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
 void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, int ChartX, int ChartY, int knum){
   
   float lastAngle = 0;
+  
+  fill(#000000);
+  stroke(#666666);
+  ellipse(ChartX, ChartY, diameter, diameter);
 
   //String gtitle = "KANAGAWA " + str(knum); 
   //text(gtitle,ChartX - 40, ChartY - (diameter / 2 + 10));
@@ -488,6 +492,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
            
   }
   fill(#000000);
+  stroke(#666666);
   ellipse(ChartX, ChartY, diameter/3, diameter/3);
   textFont(font);
   fill(255);
