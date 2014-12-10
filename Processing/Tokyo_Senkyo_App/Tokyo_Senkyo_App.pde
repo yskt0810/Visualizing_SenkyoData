@@ -5,6 +5,8 @@ int PieChartPlotY;
 int distance = 85;
 int distanceY = 80;
 int diameter = 75;
+int Tokuhyo_PlotX;
+int Tokuhyo_PlotY;
 
 HashMap Kuwari1; HashMap Kuwari2; HashMap Kuwari3; HashMap Kuwari4; HashMap Kuwari5;
 HashMap Kuwari6; HashMap Kuwari7; HashMap Kuwari8; HashMap Kuwari9; HashMap Kuwari10;
@@ -23,6 +25,8 @@ int dataMax6 = 0; int dataMax7 = 0; int dataMax8 = 0; int dataMax9 = 0; int data
 int dataMax11 = 0; int dataMax12 = 0; int dataMax13 = 0; int dataMax14 = 0; int dataMax15 = 0;
 int dataMax16 = 0; int dataMax17 = 0; int dataMax18 = 0; int dataMax19 = 0; int dataMax20 = 0;
 int dataMax21 = 0; int dataMax22 = 0; int dataMax23 = 0; int dataMax24 = 0; int dataMax25 = 0;
+
+int[] tokuhyo_goukei;
 
 int[][] touhyouritsu;
 
@@ -137,7 +141,7 @@ void setup(){
   
   dataMax1 = 0;
   boolean tmp = false;
-  int tmp_party = 15;
+  tokuhyo_goukei = new int[15];
   for(int i=0; i<lines.length; i++){
     
     
@@ -174,8 +178,11 @@ void setup(){
     if(kuwari == 24){ Kuwari24.put(party,vote); Kouho24.put(party,name); dataMax24 = dataMax24 + vote;  }
     if(kuwari == 25){ Kuwari25.put(party,vote); Kouho25.put(party,name); dataMax25 = dataMax25 + vote;  }
 
-
+   if(party == 10 || party > 15){ tokuhyo_goukei[14] = tokuhyo_goukei[14] + vote;}
+    else{ tokuhyo_goukei[party -1] = tokuhyo_goukei[party - 1] + vote; } 
   }
+  
+  println(tokuhyo_goukei);
   
   frameRate(15);
   smooth();
@@ -303,6 +310,7 @@ void UpdateSetting(int SetYear){
   
   int tmp_party = 15;
   boolean tmp = false;
+  tokuhyo_goukei = new int[15];
   
   for(int i=0; i<lines.length; i++){
     
@@ -339,10 +347,14 @@ void UpdateSetting(int SetYear){
     if(kuwari == 22){ Kuwari22.put(party,vote); Kouho22.put(party,name); dataMax22 = dataMax22 + vote;  }
     if(kuwari == 23){ Kuwari23.put(party,vote); Kouho23.put(party,name); dataMax23 = dataMax23 + vote;  }    
     if(kuwari == 24){ Kuwari24.put(party,vote); Kouho24.put(party,name); dataMax24 = dataMax24 + vote;  }    
-    if(kuwari == 25){ Kuwari25.put(party,vote); Kouho25.put(party,name); dataMax25 = dataMax25 + vote;  }    
+    if(kuwari == 25){ Kuwari25.put(party,vote); Kouho25.put(party,name); dataMax25 = dataMax25 + vote;  }
+   
+    if(party == 10 || party > 15){ tokuhyo_goukei[14] = tokuhyo_goukei[14] + vote;}
+    else{ tokuhyo_goukei[party -1] = tokuhyo_goukei[party - 1] + vote; } 
 
   } 
   
+  println(tokuhyo_goukei);
   
 }
 
@@ -373,6 +385,7 @@ void draw(){
   drawParty();
   
   DrawEachSenkyoku();
+  DrawTokuhyoChart();
   
 
 }
@@ -400,6 +413,8 @@ void UpdateDraw(int SelectYear){
   drawParty();
   
   DrawEachSenkyoku();
+  DrawTokuhyoChart();
+  
   
 }
 
@@ -873,6 +888,178 @@ void mousePressed(){
     }
   }
 }
+
+
+
+
+
+void DrawTokuhyoChart(){
+  
+   textFont(RateFont);
+   textAlign(LEFT);
+   fill(255);
+   text("東京都の政党別得票率",50,530);
+  
+  int TokuhyoChartPlotX = 150;
+  int TokuhyoChartPlotY = 550;
+  int TokuhyoChartX = TokuhyoChartPlotX;
+  int TokuhyoChartY = TokuhyoChartPlotY + 10;
+  
+
+  
+  int max = 0;
+  for(int i = 0; i<tokuhyo_goukei.length; i++){
+    max = max + tokuhyo_goukei[i];
+  }
+  
+  float value = 0;
+  float rectMax = 400;
+  float tokuhyoritsu = 0;
+  textFont(font);
+  textAlign(RIGHT);
+  //tokuhyo_goukei
+  noStroke();
+  fill(#CC3333);
+  value = map(tokuhyo_goukei[0],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("自民党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[0]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
+  
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#DDDD00);
+  value = map(tokuhyo_goukei[1],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("公明党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[1]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
+  
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#00DD00);
+  value = map(tokuhyo_goukei[2],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("維新の党（日本維新の会）",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[2]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);  
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#AAAAAA);
+  value = map(tokuhyo_goukei[3],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("みんなの党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[3]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
+ 
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#DD00DD);
+  value = map(tokuhyo_goukei[4],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("幸福実現党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[4]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);  
+
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#55AACC);
+  value = map(tokuhyo_goukei[5],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("社会民主党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[5]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#AF8080);
+  value = map(tokuhyo_goukei[6],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("日本共産党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[6]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
+
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#FF9933);
+  value = map(tokuhyo_goukei[7],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("生活の党（日本未来の党）",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[7]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#3366EE);
+  value = map(tokuhyo_goukei[8],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("民主党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+   tokuhyoritsu = (float(tokuhyo_goukei[8]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#CC6699);
+  value = map(tokuhyo_goukei[10],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("新党日本",TokuhyoChartX - 5, TokuhyoChartY + 10);
+   tokuhyoritsu = (float(tokuhyo_goukei[10]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
+  
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#9933CC);
+  value = map(tokuhyo_goukei[11],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("次世代の党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+   tokuhyoritsu = (float(tokuhyo_goukei[11]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
+
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#33CC99);
+  value = map(tokuhyo_goukei[12],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("保守新党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+   tokuhyoritsu = (float(tokuhyo_goukei[12]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);   
+ 
+ 
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#8080AF);
+  value = map(tokuhyo_goukei[13],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("国民新党",TokuhyoChartX - 5, TokuhyoChartY + 10);
+   tokuhyoritsu = (float(tokuhyo_goukei[13]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
+ 
+  TokuhyoChartY = TokuhyoChartY + 20;  
+  fill(#333333);
+  value = map(tokuhyo_goukei[14],0,max,0,rectMax);
+  rect(TokuhyoChartX,TokuhyoChartY, value, 10);
+  fill(255);
+  text("その他",TokuhyoChartX - 5, TokuhyoChartY + 10);
+  tokuhyoritsu = (float(tokuhyo_goukei[14]) / max) * 100;
+  text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
+  
+  TokuhyoChartY = TokuhyoChartY + 20;
+  fill(255);
+  stroke(255);
+  line(TokuhyoChartPlotX, TokuhyoChartPlotY, TokuhyoChartPlotX, TokuhyoChartY);
+  
+  textAlign(LEFT);
+  
+}
+
+
 
 
 
