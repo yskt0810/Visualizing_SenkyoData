@@ -3,37 +3,26 @@ float[] angles1;
 int PieChartPlotX;
 int PieChartPlotY;
 int distance = 85;
-int distanceY = 50;
+int distanceY = 80;
 int diameter = 75;
 
 HashMap Kuwari1; HashMap Kuwari2; HashMap Kuwari3; HashMap Kuwari4; HashMap Kuwari5;
 HashMap Kuwari6; HashMap Kuwari7; HashMap Kuwari8; HashMap Kuwari9; HashMap Kuwari10;
 HashMap Kuwari11; HashMap Kuwari12; HashMap Kuwari13; HashMap Kuwari14; HashMap Kuwari15;
-HashMap Kuwari16; HashMap Kuwari17;HashMap Kuwari18;
+HashMap Kuwari16; HashMap Kuwari17; HashMap Kuwari18; HashMap Kuwari19; HashMap Kuwari20;
+HashMap Kuwari21; HashMap Kuwari22; HashMap Kuwari23; HashMap Kuwari24; HashMap Kuwari25;
 
 HashMap Kouho1; HashMap Kouho2; HashMap Kouho3; HashMap Kouho4; HashMap Kouho5;
 HashMap Kouho6; HashMap Kouho7; HashMap Kouho8; HashMap Kouho9; HashMap Kouho10;
 HashMap Kouho11; HashMap Kouho12; HashMap Kouho13; HashMap Kouho14; HashMap Kouho15;
-HashMap Kouho16; HashMap Kouho17; HashMap Kouho18;
+HashMap Kouho16; HashMap Kouho17; HashMap Kouho18; HashMap Kouho19; HashMap Kouho20;
+HashMap Kouho21; HashMap Kouho22; HashMap Kouho23; HashMap Kouho24; HashMap Kouho25;
 
-int dataMax1 = 0;
-int dataMax2 = 0;
-int dataMax3 = 0;
-int dataMax4 = 0;
-int dataMax5 = 0;
-int dataMax6 = 0;
-int dataMax7 = 0;
-int dataMax8 = 0;
-int dataMax9 = 0;
-int dataMax10 = 0;
-int dataMax11 = 0;
-int dataMax12 = 0;
-int dataMax13 = 0;
-int dataMax14 = 0;
-int dataMax15 = 0;
-int dataMax16 = 0;
-int dataMax17 = 0;
-int dataMax18 = 0;
+int dataMax1 = 0; int dataMax2 = 0; int dataMax3 = 0; int dataMax4 = 0; int dataMax5 = 0;
+int dataMax6 = 0; int dataMax7 = 0; int dataMax8 = 0; int dataMax9 = 0; int dataMax10 = 0;
+int dataMax11 = 0; int dataMax12 = 0; int dataMax13 = 0; int dataMax14 = 0; int dataMax15 = 0;
+int dataMax16 = 0; int dataMax17 = 0; int dataMax18 = 0; int dataMax19 = 0; int dataMax20 = 0;
+int dataMax21 = 0; int dataMax22 = 0; int dataMax23 = 0; int dataMax24 = 0; int dataMax25 = 0;
 
 int[][] touhyouritsu;
 
@@ -56,26 +45,25 @@ void setup(){
   year = 2012;
   type = 2;
   filename = new String[5];
-  filename[0] = "kanagawa2003.csv";
-  filename[1] = "kanagawa2005.csv";
-  filename[2] = "kanagawa2009.csv";
-  filename[3] = "kanagawa2012.csv";
-  filename[4] = "kanagawa_hirei2012.csv";
+  filename[0] = "tokyo2012.csv";
+  filename[1] = "tokyo2009.csv";
+  filename[2] = "tokyo2005.csv";
+  filename[3] = "tokyo2003.csv";
+  filename[4] = "tokyo2012.csv";
   
-  String[] lines = loadStrings(filename[3]); 
-  KanagawaMap = loadShape("kanagawa.svg");
+  String[] lines = loadStrings(filename[0]); 
   
-  //font = loadFont("HiraKakuProN-W6-10.vlw");
+  KanagawaMap = loadShape("tokyo.svg");
+  
   font = createFont("SansSerif",10);
   TitleFont = createFont("SansSerif", 28);
   RateFont = createFont("SansSerif", 14);
   
-  String[] lines2 = loadStrings("touhyouritsu.csv");
+  String[] lines2 = loadStrings("touhyouritsu_tokyo.csv");
   String[] lines3 = loadStrings("2014info.csv");
-  String[] lines4 = loadStrings("total2012.csv");
   
-  size(1250,750);
-  DataTitle = "Kanagawa Senkyo " + str(year);
+  size(1600,960);
+  DataTitle = "Tokyo Senkyo " + str(year);
   
   touhyouritsu = new int[8][8];
   for(int i=0; i< lines2.length; i++){
@@ -87,8 +75,7 @@ void setup(){
     
   }
   
-  
-  kouho2014 = new HashMap(80);
+  kouho2014 = new HashMap();
   for(int i=0; i<lines3.length; i++){
     String[] pieces = split(lines3[i],',');
     kouho2014.put(pieces[2],pieces[1]);
@@ -113,7 +100,14 @@ void setup(){
   Kuwari15 = new HashMap(); 
   Kuwari16 = new HashMap(); 
   Kuwari17 = new HashMap(); 
-  Kuwari18 = new HashMap(); 
+  Kuwari18 = new HashMap();
+  Kuwari19 = new HashMap();
+  Kuwari20 = new HashMap();
+  Kuwari21 = new HashMap();
+  Kuwari22 = new HashMap();
+  Kuwari23 = new HashMap();
+  Kuwari24 = new HashMap();
+  Kuwari25 = new HashMap();
   
   Kouho1 = new HashMap(); 
   Kouho2 = new HashMap(); 
@@ -132,83 +126,59 @@ void setup(){
   Kouho15 = new HashMap(); 
   Kouho16 = new HashMap(); 
   Kouho17 = new HashMap(); 
-  Kouho18 = new HashMap(); 
+  Kouho18 = new HashMap();
+  Kouho19 = new HashMap();
+  Kouho20 = new HashMap();
+  Kouho21 = new HashMap();
+  Kouho22 = new HashMap();
+  Kouho23 = new HashMap();
+  Kouho24 = new HashMap();
+  Kouho25 = new HashMap();
   
   dataMax1 = 0;
-  
+  boolean tmp = false;
+  int tmp_party = 15;
   for(int i=0; i<lines.length; i++){
     
+    
     String[] pieces = split(lines[i],',');
-    int kuwari = int(pieces[0]);
-    int party  = int(pieces[1]);
+    int kuwari = int(trim(pieces[0]));
+    int party  = int(trim(pieces[1]));
     String name = pieces[2];
-    int vote   = int(pieces[3]);
+    int vote   = int(trim(pieces[3]));
     
     if(kuwari == 1){ Kuwari1.put(party,vote); Kouho1.put(party,name); dataMax1 = dataMax1 + vote; }
     if(kuwari == 2){ Kuwari2.put(party,vote); Kouho2.put(party,name); dataMax2 = dataMax2 + vote; }
-    if(kuwari == 3){ Kuwari3.put(party,vote); Kouho3.put(party,name); dataMax3 = dataMax3 + vote; }
-    if(kuwari == 4){ Kuwari4.put(party,vote); Kouho4.put(party,name); dataMax4 = dataMax4 + vote; }
-    if(kuwari == 5){ Kuwari5.put(party,vote); Kouho5.put(party,name); dataMax5 = dataMax5 + vote; }
-    if(kuwari == 6){ Kuwari6.put(party,vote); Kouho6.put(party,name); dataMax6 = dataMax6 + vote; }
-    if(kuwari == 7){ Kuwari7.put(party,vote); Kouho7.put(party,name); dataMax7 = dataMax7 + vote; }
-    if(kuwari == 8){ Kuwari8.put(party,vote); Kouho8.put(party,name); dataMax8 = dataMax8 + vote; }
-    if(kuwari == 9){ Kuwari9.put(party,vote); Kouho9.put(party,name); dataMax9 = dataMax9 + vote; }
-    if(kuwari == 10){ Kuwari10.put(party,vote); Kouho10.put(party,name); dataMax10 = dataMax10 + vote; }
-    if(kuwari == 11){ Kuwari11.put(party,vote); Kouho11.put(party,name); dataMax11 = dataMax11 + vote; }
-    if(kuwari == 12){ Kuwari12.put(party,vote); Kouho12.put(party,name); dataMax12 = dataMax12 + vote; }
-    if(kuwari == 13){ Kuwari13.put(party,vote); Kouho13.put(party,name); dataMax13 = dataMax13 + vote; }
-    if(kuwari == 14){ Kuwari14.put(party,vote); Kouho14.put(party,name); dataMax14 = dataMax14 + vote; }
-    if(kuwari == 15){ Kuwari15.put(party,vote); Kouho15.put(party,name); dataMax15 = dataMax15 + vote; }
-    if(kuwari == 16){ Kuwari16.put(party,vote); Kouho16.put(party,name); dataMax16 = dataMax16 + vote; }
-    if(kuwari == 17){ Kuwari17.put(party,vote); Kouho17.put(party,name); dataMax17 = dataMax17 + vote; }
-    if(kuwari == 18){ Kuwari18.put(party,vote); Kouho18.put(party,name); dataMax18 = dataMax18 + vote; }
+    if(kuwari == 3){ Kuwari3.put(party,vote); Kouho3.put(party,name); dataMax3 = dataMax3 + vote;  }
+    if(kuwari == 4){ Kuwari4.put(party,vote); Kouho4.put(party,name); dataMax4 = dataMax4 + vote;  }
+    if(kuwari == 5){ Kuwari5.put(party,vote); Kouho5.put(party,name); dataMax5 = dataMax5 + vote;  }
+    if(kuwari == 6){ Kuwari6.put(party,vote); Kouho6.put(party,name); dataMax6 = dataMax6 + vote;  }
+    if(kuwari == 7){ Kuwari7.put(party,vote); Kouho7.put(party,name); dataMax7 = dataMax7 + vote;  }
+    if(kuwari == 8){ Kuwari8.put(party,vote); Kouho8.put(party,name); dataMax8 = dataMax8 + vote;  }
+    if(kuwari == 9){ Kuwari9.put(party,vote); Kouho9.put(party,name); dataMax9 = dataMax9 + vote;  }
+    if(kuwari == 10){ Kuwari10.put(party,vote); Kouho10.put(party,name); dataMax10 = dataMax10 + vote;  }
+    if(kuwari == 11){ Kuwari11.put(party,vote); Kouho11.put(party,name); dataMax11 = dataMax11 + vote;  }
+    if(kuwari == 12){ Kuwari12.put(party,vote); Kouho12.put(party,name); dataMax12 = dataMax12 + vote;  }
+    if(kuwari == 13){ Kuwari13.put(party,vote); Kouho13.put(party,name); dataMax13 = dataMax13 + vote;  }
+    if(kuwari == 14){ Kuwari14.put(party,vote); Kouho14.put(party,name); dataMax14 = dataMax14 + vote;  }
+    if(kuwari == 15){ Kuwari15.put(party,vote); Kouho15.put(party,name); dataMax15 = dataMax15 + vote;  }
+    if(kuwari == 16){ Kuwari16.put(party,vote); Kouho16.put(party,name); dataMax16 = dataMax16 + vote;  }
+    if(kuwari == 17){ Kuwari17.put(party,vote); Kouho17.put(party,name); dataMax17 = dataMax17 + vote;  }
+    if(kuwari == 18){ Kuwari18.put(party,vote); Kouho18.put(party,name); dataMax18 = dataMax18 + vote;  }
+
+    if(kuwari == 19){ Kuwari19.put(party,vote); Kouho19.put(party,name); dataMax19 = dataMax19 + vote;  }
+    if(kuwari == 20){ Kuwari20.put(party,vote); Kouho20.put(party,name); dataMax20 = dataMax20 + vote;  }
+    if(kuwari == 21){ Kuwari21.put(party,vote); Kouho21.put(party,name); dataMax21 = dataMax21 + vote;  }
+    if(kuwari == 22){ Kuwari22.put(party,vote); Kouho22.put(party,name); dataMax22 = dataMax22 + vote;  }
+    if(kuwari == 23){ Kuwari23.put(party,vote); Kouho23.put(party,name); dataMax23 = dataMax23 + vote;  }
+    if(kuwari == 24){ Kuwari24.put(party,vote); Kouho24.put(party,name); dataMax24 = dataMax24 + vote;  }
+    if(kuwari == 25){ Kuwari25.put(party,vote); Kouho25.put(party,name); dataMax25 = dataMax25 + vote;  }
+
+
   }
-  
-  for(int i=0; i<lines4.length; i++){
-    String[] pieces = split(lines4[i],',');
-    println(pieces[1]);
-    if(int(pieces[1]) == 1){
-      dataMax1 = int(pieces[2]);
-    }else if(int(pieces[1]) == 2){
-      dataMax2 = int(pieces[2]);
-    }else if(int(pieces[1]) == 3){
-      dataMax3 = int(pieces[2]);
-    }else if(int(pieces[1]) == 4){
-      dataMax4 = int(pieces[2]);
-    }else if(int(pieces[1]) == 5){
-      dataMax5 = int(pieces[2]);
-    }else if(int(pieces[1]) == 6){
-      dataMax6 = int(pieces[2]);
-    }else if(int(pieces[1]) == 7){
-      dataMax7 = int(pieces[2]);
-    }else if(int(pieces[1]) == 8){
-      dataMax8 = int(pieces[2]);
-    }else if(int(pieces[1]) == 9){
-      dataMax9 = int(pieces[2]);
-    }else if(int(pieces[1]) == 10){
-      dataMax10 = int(pieces[2]);
-    }else if(int(pieces[1]) == 11){
-      dataMax11 = int(pieces[2]);
-    }else if(int(pieces[1]) == 12){
-      dataMax12 = int(pieces[2]);
-    }else if(int(pieces[1]) == 13){
-      dataMax13 = int(pieces[2]);
-    }else if(int(pieces[1]) == 14){
-      dataMax14 = int(pieces[2]);
-    }else if(int(pieces[1]) == 15){
-      dataMax15 = int(pieces[2]);
-    }else if(int(pieces[1]) == 16){
-      dataMax16 = int(pieces[2]);
-    }else if(int(pieces[1]) == 17){
-      dataMax17 = int(pieces[2]);
-    }else if(int(pieces[1]) == 18){
-      dataMax18 = int(pieces[2]);
-    }
-    
-  }
-  
   
   frameRate(15);
+  smooth();
 
 }
 
@@ -216,22 +186,23 @@ void setup(){
 void UpdateSetting(int SetYear){
 
   String[] lines;
-  if(SetYear == 2003){
+  if(SetYear == 2012){
     lines = loadStrings(filename[0]);
-  }else if(SetYear == 2005){
-    lines = loadStrings(filename[1]);
   }else if(SetYear == 2009){
+    lines = loadStrings(filename[1]);
+  }else if(SetYear == 2005){
     lines = loadStrings(filename[2]);
-  }else if(SetYear == 2012){
+  }else if(SetYear == 2003){
     lines = loadStrings(filename[3]);
   }else{
-    lines = loadStrings(filename[3]);
+    lines = loadStrings(filename[0]);
     
   }
   
-  KanagawaMap = loadShape("kanagawa.svg");
   
-  String[] lines2 = loadStrings("touhyouritsu.csv");
+  KanagawaMap = loadShape("tokyo.svg");
+  
+  String[] lines2 = loadStrings("touhyouritsu_tokyo.csv");
   String[] lines3 = loadStrings("2014info.csv");
   
   touhyouritsu = new int[8][8];
@@ -269,7 +240,14 @@ void UpdateSetting(int SetYear){
   Kuwari15 = new HashMap(); 
   Kuwari16 = new HashMap(); 
   Kuwari17 = new HashMap(); 
-  Kuwari18 = new HashMap(); 
+  Kuwari18 = new HashMap();
+  Kuwari19 = new HashMap();
+  Kuwari20 = new HashMap();
+  Kuwari21 = new HashMap();
+  Kuwari22 = new HashMap();
+  Kuwari23 = new HashMap();
+  Kuwari24 = new HashMap();
+  Kuwari25 = new HashMap();
   
   Kouho1 = new HashMap(); 
   Kouho2 = new HashMap(); 
@@ -289,6 +267,13 @@ void UpdateSetting(int SetYear){
   Kouho16 = new HashMap(); 
   Kouho17 = new HashMap(); 
   Kouho18 = new HashMap(); 
+  Kouho19 = new HashMap();
+  Kouho20 = new HashMap();
+  Kouho21 = new HashMap();
+  Kouho22 = new HashMap();
+  Kouho23 = new HashMap();
+  Kouho24 = new HashMap();
+  Kouho25 = new HashMap();
   
   dataMax1 = 0;
   dataMax2 = 0;
@@ -308,35 +293,54 @@ void UpdateSetting(int SetYear){
   dataMax16 = 0;
   dataMax17 = 0;
   dataMax18 = 0;
+  dataMax19 = 0;
+  dataMax20 = 0;
+  dataMax21 = 0;
+  dataMax22 = 0;
+  dataMax23 = 0;
+  dataMax24 = 0;
+  dataMax25 = 0;
   
-  dataMax1 = 0;
+  int tmp_party = 15;
+  boolean tmp = false;
   
   for(int i=0; i<lines.length; i++){
     
+
     String[] pieces = split(lines[i],',');
     int kuwari = int(pieces[0]);
     int party  = int(pieces[1]);
     String name = pieces[2];
-    int vote   = int(pieces[3]);
+    int vote   = int(trim(pieces[3]));
     
-    if(kuwari == 1){ Kuwari1.put(party,vote); Kouho1.put(party,name); dataMax1 = dataMax1 + vote; }
-    if(kuwari == 2){ Kuwari2.put(party,vote); Kouho2.put(party,name); dataMax2 = dataMax2 + vote; }
-    if(kuwari == 3){ Kuwari3.put(party,vote); Kouho3.put(party,name); dataMax3 = dataMax3 + vote; }
-    if(kuwari == 4){ Kuwari4.put(party,vote); Kouho4.put(party,name); dataMax4 = dataMax4 + vote; }
-    if(kuwari == 5){ Kuwari5.put(party,vote); Kouho5.put(party,name); dataMax5 = dataMax5 + vote; }
-    if(kuwari == 6){ Kuwari6.put(party,vote); Kouho6.put(party,name); dataMax6 = dataMax6 + vote; }
-    if(kuwari == 7){ Kuwari7.put(party,vote); Kouho7.put(party,name); dataMax7 = dataMax7 + vote; }
-    if(kuwari == 8){ Kuwari8.put(party,vote); Kouho8.put(party,name); dataMax8 = dataMax8 + vote; }
-    if(kuwari == 9){ Kuwari9.put(party,vote); Kouho9.put(party,name); dataMax9 = dataMax9 + vote; }
-    if(kuwari == 10){ Kuwari10.put(party,vote); Kouho10.put(party,name); dataMax10 = dataMax10 + vote; }
-    if(kuwari == 11){ Kuwari11.put(party,vote); Kouho11.put(party,name); dataMax11 = dataMax11 + vote; }
-    if(kuwari == 12){ Kuwari12.put(party,vote); Kouho12.put(party,name); dataMax12 = dataMax12 + vote; }
-    if(kuwari == 13){ Kuwari13.put(party,vote); Kouho13.put(party,name); dataMax13 = dataMax13 + vote; }
-    if(kuwari == 14){ Kuwari14.put(party,vote); Kouho14.put(party,name); dataMax14 = dataMax14 + vote; }
-    if(kuwari == 15){ Kuwari15.put(party,vote); Kouho15.put(party,name); dataMax15 = dataMax15 + vote; }
-    if(kuwari == 16){ Kuwari16.put(party,vote); Kouho16.put(party,name); dataMax16 = dataMax16 + vote; }
-    if(kuwari == 17){ Kuwari17.put(party,vote); Kouho17.put(party,name); dataMax17 = dataMax17 + vote; }
-    if(kuwari == 18){ Kuwari18.put(party,vote); Kouho18.put(party,name); dataMax18 = dataMax18 + vote; }
+    
+    if(kuwari == 1){ Kuwari1.put(party,vote); Kouho1.put(party,name); dataMax1 = dataMax1 + vote;  }
+    if(kuwari == 2){ Kuwari2.put(party,vote); Kouho2.put(party,name); dataMax2 = dataMax2 + vote;  }
+    if(kuwari == 3){ Kuwari3.put(party,vote); Kouho3.put(party,name); dataMax3 = dataMax3 + vote;  }
+    if(kuwari == 4){ Kuwari4.put(party,vote); Kouho4.put(party,name); dataMax4 = dataMax4 + vote;  }
+    if(kuwari == 5){ Kuwari5.put(party,vote); Kouho5.put(party,name); dataMax5 = dataMax5 + vote;  }
+    if(kuwari == 6){ Kuwari6.put(party,vote); Kouho6.put(party,name); dataMax6 = dataMax6 + vote;  }
+    if(kuwari == 7){ Kuwari7.put(party,vote); Kouho7.put(party,name); dataMax7 = dataMax7 + vote;  }
+    if(kuwari == 8){ Kuwari8.put(party,vote); Kouho8.put(party,name); dataMax8 = dataMax8 + vote;  }
+    if(kuwari == 9){ Kuwari9.put(party,vote); Kouho9.put(party,name); dataMax9 = dataMax9 + vote;  }
+    if(kuwari == 10){ Kuwari10.put(party,vote); Kouho10.put(party,name); dataMax10 = dataMax10 + vote;  }
+    if(kuwari == 11){ Kuwari11.put(party,vote); Kouho11.put(party,name); dataMax11 = dataMax11 + vote;  }
+    if(kuwari == 12){ Kuwari12.put(party,vote); Kouho12.put(party,name); dataMax12 = dataMax12 + vote;  }
+    if(kuwari == 13){ Kuwari13.put(party,vote); Kouho13.put(party,name); dataMax13 = dataMax13 + vote;  }
+    if(kuwari == 14){ Kuwari14.put(party,vote); Kouho14.put(party,name); dataMax14 = dataMax14 + vote;  }
+    if(kuwari == 15){ Kuwari15.put(party,vote); Kouho15.put(party,name); dataMax15 = dataMax15 + vote;  }
+    if(kuwari == 16){ Kuwari16.put(party,vote); Kouho16.put(party,name); dataMax16 = dataMax16 + vote;  }
+    if(kuwari == 17){ Kuwari17.put(party,vote); Kouho17.put(party,name); dataMax17 = dataMax17 + vote;  }
+    if(kuwari == 18){ Kuwari18.put(party,vote); Kouho18.put(party,name); dataMax18 = dataMax18 + vote;  }
+
+    if(kuwari == 19){ Kuwari19.put(party,vote); Kouho19.put(party,name); dataMax19 = dataMax19 + vote;  }
+    if(kuwari == 20){ Kuwari20.put(party,vote); Kouho20.put(party,name); dataMax20 = dataMax20 + vote;  }
+    if(kuwari == 21){ Kuwari21.put(party,vote); Kouho21.put(party,name); dataMax21 = dataMax21 + vote;  }
+    if(kuwari == 22){ Kuwari22.put(party,vote); Kouho22.put(party,name); dataMax22 = dataMax22 + vote;  }
+    if(kuwari == 23){ Kuwari23.put(party,vote); Kouho23.put(party,name); dataMax23 = dataMax23 + vote;  }    
+    if(kuwari == 24){ Kuwari24.put(party,vote); Kouho24.put(party,name); dataMax24 = dataMax24 + vote;  }    
+    if(kuwari == 25){ Kuwari25.put(party,vote); Kouho25.put(party,name); dataMax25 = dataMax25 + vote;  }    
+
   } 
   
   
@@ -350,7 +354,7 @@ void UpdateSetting(int SetYear){
 
 void draw(){
   
-  PieChartPlotX = 500;
+  PieChartPlotX = 550;
   PieChartPlotY = 60;
   
   background(0);
@@ -377,7 +381,7 @@ void UpdateDraw(int SelectYear){
   
   year = SelectYear;
   
-  PieChartPlotX = 500;
+  PieChartPlotX = 550;
   PieChartPlotY = 60;
   
   background(0);
@@ -386,7 +390,7 @@ void UpdateDraw(int SelectYear){
   
   smooth();
   fill(255);
-  DataTitle = "Kanagawa Senkyo " + str(year);
+  DataTitle = "Tokyo Senkyo " + str(year);
   text(DataTitle, 20, 40);
   
   textFont(font);
@@ -403,29 +407,35 @@ void UpdateDraw(int SelectYear){
 
 void DrawEachSenkyoku(){
   
-  DrawPieChart(PieChartPlotX,PieChartPlotY,Kuwari1,Kouho1,dataMax1, 1);
-  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY, Kuwari2,Kouho2, dataMax2, 2);
+  DrawPieChart(PieChartPlotX,                                 PieChartPlotY, Kuwari1, Kouho1, dataMax1, 1);
+  DrawPieChart(PieChartPlotX + (diameter + distance),         PieChartPlotY, Kuwari2, Kouho2, dataMax2, 2);
   DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY, Kuwari3, Kouho3, dataMax3, 3);
   DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY, Kuwari4, Kouho4, dataMax4, 4);
   DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY, Kuwari5, Kouho5, dataMax5, 5);
+  DrawPieChart(PieChartPlotX + (diameter * 5 + distance * 5), PieChartPlotY, Kuwari6, Kouho6, dataMax6, 6);
+  DrawPieChart(PieChartPlotX + (diameter * 6 + distance * 6), PieChartPlotY, Kuwari7, Kouho7, dataMax7, 7);
   
-  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter + distanceY * 2),Kuwari6,Kouho6,dataMax6, 6);
-  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter + distanceY * 2), Kuwari7,Kouho7, dataMax7, 7);
-  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter + distanceY * 2), Kuwari8, Kouho8, dataMax8, 8);
-  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter + distanceY * 2), Kuwari9, Kouho9, dataMax9, 9);
-  DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY + (diameter + distanceY * 2), Kuwari10, Kouho10, dataMax10, 10);
+  DrawPieChart(PieChartPlotX,                                 PieChartPlotY + (diameter + distanceY * 2), Kuwari8,  Kouho8,  dataMax8, 8);
+  DrawPieChart(PieChartPlotX + (diameter + distance),         PieChartPlotY + (diameter + distanceY * 2), Kuwari9,  Kouho9,  dataMax9, 9);
+  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter + distanceY * 2), Kuwari10, Kouho10, dataMax10,10);
+  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter + distanceY * 2), Kuwari11, Kouho11, dataMax11,11);
+  DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY + (diameter + distanceY * 2), Kuwari12, Kouho12, dataMax12,12);
+  DrawPieChart(PieChartPlotX + (diameter * 5 + distance * 5), PieChartPlotY + (diameter + distanceY * 2), Kuwari13, Kouho13, dataMax13,13);
+  DrawPieChart(PieChartPlotX + (diameter * 6 + distance * 6), PieChartPlotY + (diameter + distanceY * 2), Kuwari14, Kouho14, dataMax14,14);
   
-  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter * 2 + distanceY * 4),Kuwari11, Kouho11, dataMax11, 11);
-  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari12, Kouho12, dataMax12, 12);
-  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari13, Kouho13, dataMax13, 13);
-  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari14, Kouho14, dataMax14, 14);
-  DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari15, Kouho15, dataMax15, 15);
+  DrawPieChart(PieChartPlotX,                                 PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari15, Kouho15, dataMax15, 15);
+  DrawPieChart(PieChartPlotX + (diameter + distance),         PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari16, Kouho16, dataMax16, 16);
+  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari17, Kouho17, dataMax17, 17);
+  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari18, Kouho18, dataMax18, 18);
+  DrawPieChart(PieChartPlotX + (diameter * 4 + distance * 4), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari19, Kouho19, dataMax19, 19);
+  DrawPieChart(PieChartPlotX + (diameter * 5 + distance * 5), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari20, Kouho20, dataMax20, 20);
+  DrawPieChart(PieChartPlotX + (diameter * 6 + distance * 6), PieChartPlotY + (diameter * 2 + distanceY * 4), Kuwari21, Kouho21, dataMax21, 21);
   
-
-  DrawPieChart(PieChartPlotX,PieChartPlotY + (diameter * 3 + distanceY * 6),Kuwari16,Kouho16, dataMax16, 16);
-  DrawPieChart(PieChartPlotX + (diameter + distance), PieChartPlotY + (diameter * 3 + distanceY * 6), Kuwari17, Kouho17, dataMax17, 17);
-  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter * 3 + distanceY * 6), Kuwari18, Kouho18, dataMax18, 18);
-  
+  DrawPieChart(PieChartPlotX,                                 PieChartPlotY + (diameter * 3 + distanceY * 6), Kuwari22, Kouho22, dataMax22, 22);
+  DrawPieChart(PieChartPlotX + (diameter + distance),         PieChartPlotY + (diameter * 3 + distanceY * 6), Kuwari23, Kouho23, dataMax23, 23);
+  DrawPieChart(PieChartPlotX + (diameter * 2 + distance * 2), PieChartPlotY + (diameter * 3 + distanceY * 6), Kuwari24, Kouho24, dataMax24, 24);
+  DrawPieChart(PieChartPlotX + (diameter * 3 + distance * 3), PieChartPlotY + (diameter * 3 + distanceY * 6), Kuwari25, Kouho25, dataMax25, 25);
+ 
 }
 
 
@@ -438,10 +448,11 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
   float[] angles = new float[countHash];
   color[] pattern = new color[countHash];
   String[] namelist = new String[countHash];
-  
+
   int j=0;
-  for(int i=1; i<15; i++){
+  for(int i=1; i<30; i++){
     if(Kuwari.containsKey(i)){
+
       Integer value = (Integer) Kuwari.get(i);
       angles[j] = (float) map(value,0,dataMax,0,360);
       namelist[j] = (String) Kouho.get(i);
@@ -458,6 +469,8 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
       else if(i==10){ pattern[j] = #333333; }
       else if(i==11){ pattern[j] = #CC6699; }
       else if(i==12){ pattern[j] = #9933CC; }
+      else if(i==13){ pattern[j] = #33CC99; }
+      else if(i==14){ pattern[j] = #8080AF; }
       else{ pattern[j] = #333333; }
       j++;
       
@@ -473,16 +486,16 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
 void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, int ChartX, int ChartY, int knum){
   
   float lastAngle = 0;
-  
-  fill(#000000);
-  stroke(#666666);
-  ellipse(ChartX, ChartY, diameter, diameter);
 
   //String gtitle = "KANAGAWA " + str(knum); 
   //text(gtitle,ChartX - 40, ChartY - (diameter / 2 + 10));
   
   float nameTextX = ChartX - 60;
   float nameTextY = ChartY + (diameter / 2 + 10 );
+  
+  stroke(#FFFFFF);
+  fill(#000000);
+  ellipse(ChartX, ChartY, diameter, diameter);
   
   for(int i=0; i< data.length; i++){
     
@@ -501,7 +514,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     int party = 0;
     String pname = namelist[i];
     
-    pname = trim(pname);
+    //pname = trim(pname);
     for(int j=0; j<kouho2014.size(); j++){
       
       if(kouho2014.containsKey(pname)){
@@ -524,6 +537,8 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     else if(party==10){ fill(#FFFFFF); }
     else if(party==11){ fill(#CC6699); }
     else if(party==12){ fill(#9933CC); }
+    else if(party==13){ fill(#33CC99); }
+    else if(party==14){ fill(#8080AF); }
     else{ fill(#FFFFFF); }
     
     textFont(font);
@@ -536,8 +551,8 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     nameTextY = nameTextY + 15;
            
   }
+  stroke(#FFFFFF);
   fill(#000000);
-  stroke(#666666);
   ellipse(ChartX, ChartY, diameter/3, diameter/3);
   textFont(font);
   fill(255);
@@ -553,7 +568,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
 
 void drawKanagawaMap(){
   
-   int[] win = new int[18];
+   int[] win = new int[25];
    win[0] = getWinList(Kuwari1);
    win[1] = getWinList(Kuwari2);
    win[2] = getWinList(Kuwari3);
@@ -572,6 +587,13 @@ void drawKanagawaMap(){
    win[15] = getWinList(Kuwari16);
    win[16] = getWinList(Kuwari17);
    win[17] = getWinList(Kuwari18);
+   win[18] = getWinList(Kuwari19);
+   win[19] = getWinList(Kuwari20);
+   win[20] = getWinList(Kuwari21);
+   win[21] = getWinList(Kuwari22);
+   win[22] = getWinList(Kuwari23);
+   win[23] = getWinList(Kuwari24);
+   win[24] = getWinList(Kuwari25);
    
   noStroke();
   KanagawaMap.disableStyle();
@@ -579,7 +601,7 @@ void drawKanagawaMap(){
   PShape senkyoku = new PShape();
   PShape caption = new PShape();
    
-   for(int i=1; i<19; i++){
+   for(int i=1; i<26; i++){
      String kuwari = str(i);
      senkyoku = KanagawaMap.getChild(kuwari);
      
@@ -595,6 +617,8 @@ void drawKanagawaMap(){
      else if(win[i-1] == 9){ c = #3366EE; }
      else if(win[i-1] == 11){ c = #CC6699; }
      else if(win[i-1] == 12){ c = #9933CC; }
+     else if(win[i-1] == 13){ c = #33CC99; }
+     else if(win[i-1] == 14){ c = #8080AF; }
      else{ c = #333333; }
      
      fill(c);
@@ -603,9 +627,9 @@ void drawKanagawaMap(){
      shape(senkyoku);
      
    }
-  caption = KanagawaMap.getChild("captions");
+  //caption = KanagawaMap.getChild("caption");
   //caption.translate(25,100);
-  shape(caption);
+  //shape(caption); 
   
 }
 
@@ -653,19 +677,19 @@ void drawTouhyou(int years){
   textFont(RateFont);
   
   fill(255);
-  text("投票率（全体）   " + nf(rate_total,2,2) + "%", 50, 520);
-  text("投票率（神奈川県）  " + nf(rate, 2, 2) + "%", 50, 540);
+  text("投票率（全体）   " + nf(rate_total,2,2) + "%", 50, 340);
+  text("投票率（東京都）  " + nf(rate, 2, 2) + "%", 50, 360);
   
 }
 
 void drawParty(){
   
   int beginRectX = 50;
-  int beginRectY = 555;
+  int beginRectY = 380;
   int RectWidth = 8;
   int RectHeight = 8;
   int TextX = 70;
-  int TextY = 562;
+  int TextY = 387;
    
    noStroke();
    textFont(font);
@@ -740,11 +764,24 @@ void drawParty(){
    fill(#FFFFFF);   
    text("次世代の党", TextX, TextY); 
    
+   fill(#33CC99);
+   rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
+   fill(#FFFFFF);
+   text("保守新党", TextX + 150, TextY);
+   
+   beginRectY = beginRectY + (RectWidth * 2);  
+   TextY = TextY + (RectWidth * 2);
+   
+   fill(#8080AF);
+   rect(beginRectX,beginRectY, RectWidth, RectHeight);
+   fill(#FFFFFF);   
+   text("国民新党", TextX, TextY);    
+
    fill(#333333);
    rect(beginRectX + 150,beginRectY, RectWidth, RectHeight);
    fill(#FFFFFF);
-   text("Others", TextX + 150, TextY); 
-   
+   text("その他（無所属）", TextX + 150, TextY);
+
 }
 
 
