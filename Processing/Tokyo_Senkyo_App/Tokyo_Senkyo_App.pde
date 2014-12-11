@@ -2,9 +2,9 @@ float[] angles1;
 
 int PieChartPlotX;
 int PieChartPlotY;
-int distance = 85;
-int distanceY = 80;
-int diameter = 75;
+int distance = 75;
+int distanceY = 55;
+int diameter = 60;
 int Tokuhyo_PlotX;
 int Tokuhyo_PlotY;
 
@@ -59,14 +59,15 @@ void setup(){
   
   KanagawaMap = loadShape("tokyo.svg");
   
-  font = createFont("SansSerif",10);
-  TitleFont = createFont("SansSerif", 28);
-  RateFont = createFont("SansSerif", 14);
+  //font = createFont("MSMincho",9);
+  font = createFont("SansSefif",8);
+  TitleFont = createFont("SansSerif", 24);
+  RateFont = createFont("SansSerif", 12);
   
   String[] lines2 = loadStrings("touhyouritsu_tokyo.csv");
   String[] lines3 = loadStrings("2014info_tokyo.csv");
   
-  size(1600,960);
+  size(1300,720);
   DataTitle = "Tokyo Senkyo " + str(year);
   
   touhyouritsu = new int[8][8];
@@ -352,19 +353,14 @@ void UpdateSetting(int SetYear){
 
   } 
   
-  println(tokuhyo_goukei);
+  smooth();
   
 }
 
 
-
-
-
-
-
 void draw(){
   
-  PieChartPlotX = 550;
+  PieChartPlotX = 420;
   PieChartPlotY = 60;
   
   background(#222222);
@@ -392,7 +388,7 @@ void UpdateDraw(int SelectYear){
   
   year = SelectYear;
   
-  PieChartPlotX = 550;
+  PieChartPlotX = 420;
   PieChartPlotY = 60;
   
   background(#222222);
@@ -506,7 +502,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
   float nameTextX = ChartX - 60;
   float nameTextY = ChartY + (diameter / 2 + 10 );
   
-  stroke(#FFFFFF);
+  noStroke();
   fill(#000000);
   ellipse(ChartX, ChartY, diameter, diameter);
   
@@ -560,11 +556,11 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     if(percentage < 10){ ptext = namelist[i] + " (" + nf(percentage,1,2) + "%)"; }
     else{ ptext = namelist[i] + " (" + nf(percentage, 2, 1) + "%)"; }
     
-    text(ptext,nameTextX + 20,nameTextY + 8);
-    nameTextY = nameTextY + 15;
+    text(ptext,nameTextX + 20,nameTextY + 8, 50);
+    nameTextY = nameTextY + 10;
            
   }
-  stroke(#FFFFFF);
+  noStroke();
   fill(#000000);
   ellipse(ChartX, ChartY, diameter/3, diameter/3);
   textFont(font);
@@ -636,13 +632,15 @@ void drawKanagawaMap(){
      
      fill(c);
      stroke(255);
+     strokeWeight(1);
      //senkyoku.translate(25,100);
      shape(senkyoku);
      
    }
-  //caption = KanagawaMap.getChild("caption");
-  //caption.translate(25,100);
-  //shape(caption); 
+  caption = KanagawaMap.getChild("captions");
+  stroke(255);
+  strokeWeight(0.5);
+  shape(caption); 
   
 }
 
@@ -690,19 +688,19 @@ void drawTouhyou(int years){
   textFont(RateFont);
   
   fill(255);
-  text("投票率（全体）   " + nf(rate_total,2,2) + "%", 50, 340);
-  text("投票率（東京都）  " + nf(rate, 2, 2) + "%", 50, 360);
+  text("投票率（全体）   " + nf(rate_total,2,2) + "%", 25, 240);
+  text("投票率（東京都）  " + nf(rate, 2, 2) + "%", 25, 260);
   
 }
 
 void drawParty(){
   
-  int beginRectX = 50;
-  int beginRectY = 380;
+  int beginRectX = 25;
+  int beginRectY = 280;
   int RectWidth = 8;
   int RectHeight = 8;
-  int TextX = 70;
-  int TextY = 387;
+  int TextX = 50;
+  int TextY = 287;
    
    noStroke();
    textFont(font);
@@ -896,12 +894,12 @@ void DrawTokuhyoChart(){
    textFont(RateFont);
    textAlign(LEFT);
    fill(255);
-   text("東京都の政党別得票率",50,530);
+   text("東京都の政党別得票率",25,420);
   
-  int TokuhyoChartPlotX = 150;
-  int TokuhyoChartPlotY = 550;
+  int TokuhyoChartPlotX = 140;
+  int TokuhyoChartPlotY = 440;
   int TokuhyoChartX = TokuhyoChartPlotX;
-  int TokuhyoChartY = TokuhyoChartPlotY + 10;
+  int TokuhyoChartY = TokuhyoChartPlotY + 5;
   
 
   
@@ -911,7 +909,7 @@ void DrawTokuhyoChart(){
   }
   
   float value = 0;
-  float rectMax = 400;
+  float rectMax = 300;
   float tokuhyoritsu = 0;
   textFont(font);
   textAlign(RIGHT);
@@ -926,7 +924,7 @@ void DrawTokuhyoChart(){
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
   
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#DDDD00);
   value = map(tokuhyo_goukei[1],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -936,7 +934,7 @@ void DrawTokuhyoChart(){
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
   
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#00DD00);
   value = map(tokuhyo_goukei[2],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -945,7 +943,7 @@ void DrawTokuhyoChart(){
   tokuhyoritsu = (float(tokuhyo_goukei[2]) / max) * 100;
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);  
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#AAAAAA);
   value = map(tokuhyo_goukei[3],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -955,7 +953,7 @@ void DrawTokuhyoChart(){
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
  
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#DD00DD);
   value = map(tokuhyo_goukei[4],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -965,7 +963,7 @@ void DrawTokuhyoChart(){
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);  
 
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#55AACC);
   value = map(tokuhyo_goukei[5],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -974,7 +972,7 @@ void DrawTokuhyoChart(){
   tokuhyoritsu = (float(tokuhyo_goukei[5]) / max) * 100;
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#AF8080);
   value = map(tokuhyo_goukei[6],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -984,7 +982,7 @@ void DrawTokuhyoChart(){
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
 
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#FF9933);
   value = map(tokuhyo_goukei[7],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -993,7 +991,7 @@ void DrawTokuhyoChart(){
   tokuhyoritsu = (float(tokuhyo_goukei[7]) / max) * 100;
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#3366EE);
   value = map(tokuhyo_goukei[8],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -1002,7 +1000,7 @@ void DrawTokuhyoChart(){
    tokuhyoritsu = (float(tokuhyo_goukei[8]) / max) * 100;
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#CC6699);
   value = map(tokuhyo_goukei[10],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -1011,7 +1009,7 @@ void DrawTokuhyoChart(){
    tokuhyoritsu = (float(tokuhyo_goukei[10]) / max) * 100;
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
   
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#9933CC);
   value = map(tokuhyo_goukei[11],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -1030,7 +1028,7 @@ void DrawTokuhyoChart(){
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9);   
  
  
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#8080AF);
   value = map(tokuhyo_goukei[13],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -1039,7 +1037,7 @@ void DrawTokuhyoChart(){
    tokuhyoritsu = (float(tokuhyo_goukei[13]) / max) * 100;
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
  
-  TokuhyoChartY = TokuhyoChartY + 20;  
+  TokuhyoChartY = TokuhyoChartY + 15;  
   fill(#333333);
   value = map(tokuhyo_goukei[14],0,max,0,rectMax);
   rect(TokuhyoChartX,TokuhyoChartY, value, 10);
@@ -1048,7 +1046,7 @@ void DrawTokuhyoChart(){
   tokuhyoritsu = (float(tokuhyo_goukei[14]) / max) * 100;
   text(nf(tokuhyoritsu,0,1) + "%", TokuhyoChartX + value + 30, TokuhyoChartY + 9); 
   
-  TokuhyoChartY = TokuhyoChartY + 20;
+  TokuhyoChartY = TokuhyoChartY + 15;
   fill(255);
   stroke(255);
   line(TokuhyoChartPlotX, TokuhyoChartPlotY, TokuhyoChartPlotX, TokuhyoChartY);
