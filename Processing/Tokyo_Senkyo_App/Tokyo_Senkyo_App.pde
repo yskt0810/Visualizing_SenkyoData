@@ -64,7 +64,7 @@ void setup(){
   RateFont = createFont("SansSerif", 14);
   
   String[] lines2 = loadStrings("touhyouritsu_tokyo.csv");
-  String[] lines3 = loadStrings("2014info.csv");
+  String[] lines3 = loadStrings("2014info_tokyo.csv");
   
   size(1600,960);
   DataTitle = "Tokyo Senkyo " + str(year);
@@ -182,8 +182,6 @@ void setup(){
     else{ tokuhyo_goukei[party -1] = tokuhyo_goukei[party - 1] + vote; } 
   }
   
-  println(tokuhyo_goukei);
-  
   frameRate(15);
   smooth();
 
@@ -210,7 +208,7 @@ void UpdateSetting(int SetYear){
   KanagawaMap = loadShape("tokyo.svg");
   
   String[] lines2 = loadStrings("touhyouritsu_tokyo.csv");
-  String[] lines3 = loadStrings("2014info.csv");
+  String[] lines3 = loadStrings("2014info_tokyo.csv");
   
   touhyouritsu = new int[8][8];
   for(int i=0; i< lines2.length; i++){
@@ -369,7 +367,7 @@ void draw(){
   PieChartPlotX = 550;
   PieChartPlotY = 60;
   
-  background(0);
+  background(#222222);
   
 
   textFont(TitleFont);
@@ -397,7 +395,7 @@ void UpdateDraw(int SelectYear){
   PieChartPlotX = 550;
   PieChartPlotY = 60;
   
-  background(0);
+  background(#222222);
   
   textFont(TitleFont);
   
@@ -551,7 +549,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     else if(party==9){ fill(#3399FF); }
     else if(party==10){ fill(#FFFFFF); }
     else if(party==11){ fill(#CC6699); }
-    else if(party==12){ fill(#9933CC); }
+    else if(party==12){ fill(#FF33FF); }
     else if(party==13){ fill(#33CC99); }
     else if(party==14){ fill(#8080AF); }
     else{ fill(#FFFFFF); }
