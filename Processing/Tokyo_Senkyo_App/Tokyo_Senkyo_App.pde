@@ -2,7 +2,7 @@ float[] angles1;
 
 int PieChartPlotX;
 int PieChartPlotY;
-int distance = 75;
+int distance = 70;
 int distanceY = 55;
 int diameter = 60;
 int Tokuhyo_PlotX;
@@ -60,7 +60,7 @@ void setup(){
   KanagawaMap = loadShape("tokyo.svg");
   
   //font = createFont("MSMincho",9);
-  font = createFont("SansSefif",8);
+  font = createFont("SansSerif",10);
   TitleFont = createFont("SansSerif", 24);
   RateFont = createFont("SansSerif", 12);
   
@@ -545,7 +545,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     else if(party==9){ fill(#3399FF); }
     else if(party==10){ fill(#FFFFFF); }
     else if(party==11){ fill(#CC6699); }
-    else if(party==12){ fill(#FF33FF); }
+    else if(party==12){ fill(#9933CC); }
     else if(party==13){ fill(#33CC99); }
     else if(party==14){ fill(#8080AF); }
     else{ fill(#FFFFFF); }
@@ -556,7 +556,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     if(percentage < 10){ ptext = namelist[i] + " (" + nf(percentage,1,2) + "%)"; }
     else{ ptext = namelist[i] + " (" + nf(percentage, 2, 1) + "%)"; }
     
-    text(ptext,nameTextX + 20,nameTextY + 8, 50);
+    text(ptext,nameTextX + 10,nameTextY + 8, 50);
     nameTextY = nameTextY + 10;
            
   }
@@ -909,7 +909,7 @@ void DrawTokuhyoChart(){
   }
   
   float value = 0;
-  float rectMax = 300;
+  float rectMax = 350;
   float tokuhyoritsu = 0;
   textFont(font);
   textAlign(RIGHT);

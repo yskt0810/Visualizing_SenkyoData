@@ -54,16 +54,16 @@ int type;
 
 void setup(){
   
-  year = 2012;
+  year = 2014;
   type = 2;
   filename = new String[5];
   filename[0] = "kanagawa2003.csv";
   filename[1] = "kanagawa2005.csv";
   filename[2] = "kanagawa2009.csv";
   filename[3] = "kanagawa2012.csv";
-  filename[4] = "kanagawa_hirei2012.csv";
+  filename[4] = "kanagawa2014.csv";
   
-  String[] lines = loadStrings(filename[3]); 
+  String[] lines = loadStrings(filename[4]); 
   KanagawaMap = loadShape("kanagawa.svg");
   
   //font = loadFont("HiraKakuProN-W6-10.vlw");
@@ -78,7 +78,7 @@ void setup(){
   size(1250,950);
   DataTitle = "Kanagawa Senkyo " + str(year);
   
-  touhyouritsu = new int[8][8];
+  touhyouritsu = new int[lines2.length][5];
   for(int i=0; i< lines2.length; i++){
     
     String[] pieces = split(lines2[i], ',');
@@ -230,8 +230,10 @@ void UpdateSetting(int SetYear){
     lines = loadStrings(filename[2]);
   }else if(SetYear == 2012){
     lines = loadStrings(filename[3]);
+  }else if(SetYear == 2014){
+    lines = loadStrings(filename[4]);
   }else{
-    lines = loadStrings(filename[3]);
+    lines = loadStrings(filename[4]);
     
   }
   
@@ -240,7 +242,7 @@ void UpdateSetting(int SetYear){
   String[] lines2 = loadStrings("touhyouritsu.csv");
   String[] lines3 = loadStrings("2014info.csv");
   
-  touhyouritsu = new int[8][8];
+  touhyouritsu = new int[lines2.length][8];
   for(int i=0; i< lines2.length; i++){
     
     String[] pieces = split(lines2[i], ',');
@@ -453,7 +455,7 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
   String[] namelist = new String[countHash];
   
   int j=0;
-  for(int i=1; i<15; i++){
+  for(int i=1; i<20; i++){
     if(Kuwari.containsKey(i)){
       Integer value = (Integer) Kuwari.get(i);
       angles[j] = (float) map(value,0,dataMax,0,360);
@@ -471,7 +473,7 @@ void DrawPieChart(int x, int y, HashMap Kuwari, HashMap Kouho, int dataMax, int 
       else if(i==10){ pattern[j] = #333333; }
       else if(i==11){ pattern[j] = #CC6699; }
       else if(i==12){ pattern[j] = #9933CC; }
-      else{ pattern[j] = #333333; }
+      else{ pattern[j] = #FFFFFF; }
       j++;
       
     }
@@ -542,6 +544,7 @@ void pieChart(float diameter, float[] data, color[] pattern, String[] namelist, 
     textFont(font);
     
     String ptext;
+    fill(#FFFFFF);
     if(percentage < 10){ ptext = namelist[i] + " (" + nf(percentage,1,2) + "%)"; }
     else{ ptext = namelist[i] + " (" + nf(percentage, 2, 1) + "%)"; }
     
@@ -770,6 +773,12 @@ void ButtonDraw(){
   fill(255);
   rect(buttonX,buttonY, 50,15);
   fill(0);
+  text("2014",buttonX + 10, buttonY+12);
+  
+  buttonX = buttonX + 50 + 10;
+  fill(255);
+  rect(buttonX,buttonY, 50,15);
+  fill(0);
   text("2012",buttonX + 10, buttonY+12);
   
   buttonX = buttonX + 50 + 10;
@@ -802,7 +811,7 @@ void mousePressed(){
   
   if(mouseX > BeginButtonX && mouseX < EndButtonX){
     if(mouseY > BeginButtonY && mouseY < EndButtonY){
-     int SetYear = 2012;
+     int SetYear = 2014;
      type =1;
 
      UpdateSetting(SetYear);
@@ -815,7 +824,7 @@ void mousePressed(){
   
   if(mouseX > BeginButtonX_2 && mouseX < EndButtonX_2){
     if(mouseY > BeginButtonY && mouseY < EndButtonY){
-     int SetYear = 2009;
+     int SetYear = 2012;
      type = 1;
 
      UpdateSetting(SetYear);
@@ -829,7 +838,7 @@ void mousePressed(){
   
   if(mouseX > BeginButtonX_3 && mouseX < EndButtonX_3){
     if(mouseY > BeginButtonY && mouseY < EndButtonY){
-     int SetYear = 2005;
+     int SetYear = 2009;
      type = 1;
      UpdateSetting(SetYear);
      UpdateDraw(SetYear); 
@@ -842,6 +851,19 @@ void mousePressed(){
   
   if(mouseX > BeginButtonX_4 && mouseX < EndButtonX_4){
     if(mouseY > BeginButtonY && mouseY < EndButtonY){
+     int SetYear = 2005;
+     type = 1;
+     UpdateSetting(SetYear);
+     UpdateDraw(SetYear); 
+    }
+  }
+  
+  
+  float BeginButtonX_5 = BeginButtonX_4 + 50 + 10;
+  float EndButtonX_5 = EndButtonX_4 + 50 + 10;
+  
+  if(mouseX > BeginButtonX_5 && mouseX < EndButtonX_5){
+    if(mouseY > BeginButtonY && mouseY < EndButtonY){
      int SetYear = 2003;
      type = 1;
      UpdateSetting(SetYear);
@@ -851,6 +873,29 @@ void mousePressed(){
 }
 
 void DrawTokuhyoChart(){
+
+  float vote = 0;
+  float total = 0;
+  float absolute = 0;
+  float rate = 0;
+  float rate_total = 0;
+  
+  for(int i = 0; i<8; i++){
+    
+    if(touhyouritsu[i][0] == year){
+      total = touhyouritsu[i][2];
+      vote  = touhyouritsu[i][3];
+      absolute = touhyouritsu[i][4];
+      if(touhyouritsu[i][1] == 1){
+        rate_total = (vote / total) * 100;
+      }else if(touhyouritsu[i][1] == 2){ 
+        rate = (vote / total) * 100;
+      }
+    } 
+  }
+  
+  
+  
   
    textFont(RateFont);
    textAlign(LEFT);
@@ -868,6 +913,8 @@ void DrawTokuhyoChart(){
   for(int i = 0; i<tokuhyo_goukei.length; i++){
     max = max + tokuhyo_goukei[i];
   }
+  
+  //max = int(total);
   
   float value = 0;
   float rectMax = 400;
