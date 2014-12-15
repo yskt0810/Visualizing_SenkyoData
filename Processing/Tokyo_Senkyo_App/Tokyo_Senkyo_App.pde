@@ -1,3 +1,5 @@
+import processing.pdf.*;
+
 float[] angles1;
 
 int PieChartPlotX;
@@ -46,16 +48,16 @@ int type;
 
 void setup(){
   
-  year = 2012;
+  year = 2014;
   type = 2;
   filename = new String[5];
   filename[0] = "tokyo2012.csv";
   filename[1] = "tokyo2009.csv";
   filename[2] = "tokyo2005.csv";
   filename[3] = "tokyo2003.csv";
-  filename[4] = "tokyo2012.csv";
+  filename[4] = "tokyo2014.csv";
   
-  String[] lines = loadStrings(filename[0]); 
+  String[] lines = loadStrings(filename[4]); 
   
   KanagawaMap = loadShape("tokyo.svg");
   
@@ -70,7 +72,7 @@ void setup(){
   size(1300,720);
   DataTitle = "Tokyo Senkyo " + str(year);
   
-  touhyouritsu = new int[8][8];
+  touhyouritsu = new int[lines2.length][8];
   for(int i=0; i< lines2.length; i++){
     
     String[] pieces = split(lines2[i], ',');
@@ -142,7 +144,7 @@ void setup(){
   
   dataMax1 = 0;
   boolean tmp = false;
-  tokuhyo_goukei = new int[15];
+  tokuhyo_goukei = new int[20];
   for(int i=0; i<lines.length; i++){
     
     
@@ -200,6 +202,8 @@ void UpdateSetting(int SetYear){
     lines = loadStrings(filename[2]);
   }else if(SetYear == 2003){
     lines = loadStrings(filename[3]);
+  }else if(SetYear == 2014){
+    lines = loadStrings(filename[4]);
   }else{
     lines = loadStrings(filename[0]);
     
@@ -211,7 +215,7 @@ void UpdateSetting(int SetYear){
   String[] lines2 = loadStrings("touhyouritsu_tokyo.csv");
   String[] lines3 = loadStrings("2014info_tokyo.csv");
   
-  touhyouritsu = new int[8][8];
+  touhyouritsu = new int[lines2.length][8];
   for(int i=0; i< lines2.length; i++){
     
     String[] pieces = split(lines2[i], ',');
@@ -381,7 +385,6 @@ void draw(){
   DrawEachSenkyoku();
   DrawTokuhyoChart();
   
-
 }
 
 void UpdateDraw(int SelectYear){
@@ -409,6 +412,7 @@ void UpdateDraw(int SelectYear){
   DrawEachSenkyoku();
   DrawTokuhyoChart();
   
+
   
 }
 
@@ -805,6 +809,12 @@ void ButtonDraw(){
   fill(255);
   rect(buttonX,buttonY, 50,15);
   fill(0);
+  text("2014",buttonX + 10, buttonY+12);
+  
+  buttonX = buttonX + 50 + 10;
+  fill(255);
+  rect(buttonX,buttonY, 50,15);
+  fill(0);
   text("2012",buttonX + 10, buttonY+12);
   
   buttonX = buttonX + 50 + 10;
@@ -837,7 +847,7 @@ void mousePressed(){
   
   if(mouseX > BeginButtonX && mouseX < EndButtonX){
     if(mouseY > BeginButtonY && mouseY < EndButtonY){
-     int SetYear = 2012;
+     int SetYear = 2014;
      type =1;
 
      UpdateSetting(SetYear);
@@ -850,7 +860,7 @@ void mousePressed(){
   
   if(mouseX > BeginButtonX_2 && mouseX < EndButtonX_2){
     if(mouseY > BeginButtonY && mouseY < EndButtonY){
-     int SetYear = 2009;
+     int SetYear = 2012;
      type = 1;
 
      UpdateSetting(SetYear);
@@ -864,7 +874,7 @@ void mousePressed(){
   
   if(mouseX > BeginButtonX_3 && mouseX < EndButtonX_3){
     if(mouseY > BeginButtonY && mouseY < EndButtonY){
-     int SetYear = 2005;
+     int SetYear = 2009;
      type = 1;
      UpdateSetting(SetYear);
      UpdateDraw(SetYear); 
@@ -877,12 +887,26 @@ void mousePressed(){
   
   if(mouseX > BeginButtonX_4 && mouseX < EndButtonX_4){
     if(mouseY > BeginButtonY && mouseY < EndButtonY){
+     int SetYear = 2005;
+     type = 1;
+     UpdateSetting(SetYear);
+     UpdateDraw(SetYear); 
+    }
+  }
+  
+  
+  float BeginButtonX_5 = BeginButtonX_4 + 50 + 10;
+  float EndButtonX_5 = EndButtonX_4 + 50 + 10;
+  
+  if(mouseX > BeginButtonX_5 && mouseX < EndButtonX_5){
+    if(mouseY > BeginButtonY && mouseY < EndButtonY){
      int SetYear = 2003;
      type = 1;
      UpdateSetting(SetYear);
      UpdateDraw(SetYear); 
     }
   }
+  
 }
 
 

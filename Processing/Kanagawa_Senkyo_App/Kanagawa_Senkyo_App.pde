@@ -1,3 +1,5 @@
+import processing.pdf.*;
+
 float[] angles1;
 
 int PieChartPlotX;
@@ -383,7 +385,6 @@ void draw(){
   
   DrawEachSenkyoku();
   DrawTokuhyoChart();
-  
 
 }
 
